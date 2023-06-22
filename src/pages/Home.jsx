@@ -1,6 +1,10 @@
+import { Auth } from "../components/Auth"
 
 export const Home = () => {
   return (
-    <div>home</div>
+    <>
+    <Auth />
+    </>
+
   )
 }
