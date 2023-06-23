@@ -1,6 +1,9 @@
+import { Reg } from "./auth/reg"
 
 export const Auth = () => {
   return (
-    <div>Auth</div>
+    <>
+    <Reg />
+    </>
   )
 }

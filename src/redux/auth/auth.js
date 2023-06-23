@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
 
-const users = []
+const initialState = {
+  users: [],
+}
+  
 const URL = 'https://allan-api.onrender.com/';
 
 export const username = '';
@@ -29,10 +32,11 @@ export const register = createAsyncThunk('user/register', async () => {
 });
 
 export const authSlice = createSlice({
-    users,
+    name: 'users',
+    initialState,
     reducers: {
-      register: (state,{payload}) => {
-        state.users.push(payload.user);
+      register: (state,action) => {
+        state.users.push(action.payload);
       },
       // login: (state, {payload}) => {
       //   state.value -= 1
