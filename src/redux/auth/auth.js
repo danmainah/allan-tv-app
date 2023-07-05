@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const url = 'https://allan-api.onrender.com/login'
+const url2 = 'https://allan-api.onrender.com/signup'
+
 const initialState = {
   isAuthenticated: false,
   user: null,
@@ -13,6 +15,18 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post(url, credentials);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const signup = createAsyncThunk(
+  'auth/signup',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(url2, credentials);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -35,6 +49,17 @@ const authSlice = createSlice({
         state.loading = false;
       })
       .addCase(login.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(signup.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(signup.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.loading = false;
+      })
+      .addCase(signup.rejected, (state) => {
         state.loading = false;
       });
   },

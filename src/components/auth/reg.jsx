@@ -1,25 +1,29 @@
+import { useDispatch } from 'react-redux';
+import { signup } from '../../redux/auth/auth';
 
-export const Reg = () => {
+
+export const SignupForm = () => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const credentials = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+    };
+    dispatch(signup(credentials));
+  };
+
   return (
-    <div>
-        <h3>RegisterPage</h3>
-        <form >
-            <div>
-                <label htmlFor="name">Name</label>
-                <input type="text" name="name" id="name" />
-            </div>
-            <div>
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" />
-            </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" />
-            </div>
-            <div>
-                <button>Register</button>
-            </div>
-        </form>
-    </div>
-  )
-}
+    <form onSubmit={handleSubmit}>
+      <label>Username </label>
+      <input type='text' name="username" />
+      <label>Email </label>
+      <input type="email" name="email" />
+      <label>Password </label>
+      <input type="password" name="password" />
+      <button type="submit">Login</button>
+    </form>
+  );
+};
+

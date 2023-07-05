@@ -16,7 +16,7 @@ export const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Name </label>
+      <label>Email </label>
       <input type="email" name="email" />
       <label>Password </label>
       <input type="password" name="password" />
