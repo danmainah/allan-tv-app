@@ -1,10 +1,10 @@
-import { Reg } from "./auth/reg"
+import { SignupForm } from "./auth/reg"
 import { LoginForm } from "./auth/login"
 
 export const Auth = () => {
   return (
     <>
-    <Reg />
+    <SignupForm />
     <LoginForm/>
     </>
   )
