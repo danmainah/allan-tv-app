@@ -1,11 +1,11 @@
-import { Login } from "./auth/login"
 import { Reg } from "./auth/reg"
+import { LoginForm } from "./auth/login"
 
 export const Auth = () => {
   return (
     <>
     <Reg />
-    <Login />
+    <LoginForm/>
     </>
   )
 }

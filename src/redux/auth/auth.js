@@ -1,50 +1,43 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
+const url = 'https://allan-api.onrender.com/login'
 const initialState = {
-  users: [],
-}
-  
-const URL = 'https://allan-api.onrender.com/';
-
-export const username = '';
-export const email = '';
-export const password = '';
-
-const axiosConfig = {
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  },
-  Authorization: {
-    username,
-    password,
-  },
+  isAuthenticated: false,
+  user: null,
+  loading: false,
 };
 
-// add method to add new user
-export const register = createAsyncThunk('user/register', async () => {
-  try {
-    const response = await axios.post(URL, axiosConfig);
-    return response.data;
-  } catch (error) {
-    return error.message;
+export const login = createAsyncThunk(
+  'auth/login',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(url, credentials);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
   }
+);
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.loading = false;
+      })
+      .addCase(login.rejected, (state) => {
+        state.loading = false;
+      });
+  },
 });
 
-export const authSlice = createSlice({
-    name: 'users',
-    initialState,
-    reducers: {
-      register: (state,action) => {
-        state.users.push(action.payload);
-      },
-      // login: (state, {payload}) => {
-      //   state.value -= 1
-      // },
-      // logout: (state, action) => {
-      //   state.value += action.payload
-      // },
-    },
-  })
-  
-  export default authSlice.reducer;
+export default authSlice.reducer;
