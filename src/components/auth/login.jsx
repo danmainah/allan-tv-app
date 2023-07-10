@@ -6,19 +6,19 @@ import { Navigate} from 'react-router-dom';
 export const LoginForm = () => {
   const loggedIn = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  console.log(loggedIn);
+  console.log(loggedIn.isAuthenticated);
 
   useEffect(() => {
-    if (loggedIn) {
+    if (loggedIn.isAuthenticated == true) {
       <Navigate to="/" />
-    }
+    } 
   }, [loggedIn]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const credentials = {
-      email: event.target.email.value,
       password: event.target.password.value,
+      username: event.target.username.value,
     };
     dispatch(login(credentials));
   };
@@ -26,8 +26,8 @@ export const LoginForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>Email </label>
-        <input type="email" name="email" />
+        <label>Username </label>
+        <input type="text" name="username" />
         <label>Password </label>
         <input type="password" name="password" />
         <button type="submit"> Login </button>

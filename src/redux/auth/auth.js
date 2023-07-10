@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const url = 'https://allan-api.onrender.com/login'
+// const url = 'https://allan-api.onrender.com/login'
 const url2 = 'https://allan-api.onrender.com/signup'
 
 const initialState = {
@@ -14,9 +14,10 @@ export const login = createAsyncThunk(
   'auth/login',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post(url, credentials);
+      const response = await axios.post("https://allan-api.onrender.com/login", credentials);
       return response.data;
     } catch (err) {
+     console.log( err)
       return rejectWithValue(err.response.data);
     }
   }
