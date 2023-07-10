@@ -1,6 +1,12 @@
+import { NavLink } from "react-router-dom"
+
 export const Nav = () => {
   return (
-    <div>nav</div>
+    <>
+     <NavLink to='/'> Home </NavLink>
+     <NavLink to='/signup'> Register </NavLink>
+     <NavLink to='/login'> Login </NavLink>
+    </>
   )
 }
 
