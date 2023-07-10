@@ -6,12 +6,12 @@ import { Navigate} from 'react-router-dom';
 export const LoginForm = () => {
   const loggedIn = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  console.log(loggedIn.isAuthenticated);
+  console.log(loggedIn);
 
   useEffect(() => {
-    if (loggedIn.isAuthenticated == true) {
+    if (loggedIn) {
       <Navigate to="/" />
-    } 
+    }
   }, [loggedIn]);
 
   const handleSubmit = (event) => {
